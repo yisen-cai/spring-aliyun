@@ -5,7 +5,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.allopen" version "1.4.21"
 }
 
-group 'com.glancebar'
+group 'com.glancebar.aliyun'
 version '0.0.1-SNAPSHOT'
 
 repositories {
