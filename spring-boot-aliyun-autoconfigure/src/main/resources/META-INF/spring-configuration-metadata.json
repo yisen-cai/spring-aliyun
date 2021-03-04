@@ -32,7 +32,7 @@
     },
     {
       "name": "aliyun.sts.role-arn",
-      "type": "Long",
+      "type": "String",
       "description": "Set sts ram role arn."
     }
   ]

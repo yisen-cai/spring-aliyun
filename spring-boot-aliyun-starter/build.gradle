@@ -6,7 +6,7 @@ plugins {
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
 
-group 'com.glancebar'
+group 'com.glancebar.aliyun'
 version '0.0.1-SNAPSHOT'
 
 
