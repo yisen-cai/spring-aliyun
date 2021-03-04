@@ -1,0 +1,39 @@
+{
+  "groups": [
+    {
+      "name": "my-org.cli.security",
+      "type": "org.my.developer.security.CommandLineSecurityConfigurer"
+    },
+    {
+      "name": "my-org.web.security",
+      "type": "org.my.developer.security.WebSecurityConfigurer"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aliyun.sts.access-key-id",
+      "type": "String",
+      "description": "STS user AccessKeyId."
+    },
+    {
+      "name": "aliyun.sts.access-key-secret",
+      "type": "String",
+      "description": "STS user AccessKeySecret."
+    },
+    {
+      "name": "aliyun.sts.endpoint",
+      "type": "String",
+      "description": "STS endpoint"
+    },
+    {
+      "name": "aliyun.sts.duration-seconds",
+      "type": "Long",
+      "description": "Set principal valid time in seconds."
+    },
+    {
+      "name": "aliyun.sts.role-arn",
+      "type": "Long",
+      "description": "Set sts ram role arn."
+    }
+  ]
+}

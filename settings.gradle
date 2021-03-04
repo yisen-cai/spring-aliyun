@@ -1,0 +1,5 @@
+rootProject.name = 'spring-aliyun'
+
+include("aliyun-library")
+include("spring-boot-aliyun-autoconfigure")
+include("spring-boot-aliyun-starter")

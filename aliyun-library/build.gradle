@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm'
+    id "maven-publish"
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.4.21"
+}
+
+group 'com.glancebar'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    compile('com.aliyun.oss:aliyun-sdk-oss:3.10.2')
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8')
+
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
+    testCompile('org.junit.jupiter:junit-jupiter:5.7.0')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
