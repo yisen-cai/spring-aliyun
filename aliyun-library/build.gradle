@@ -1,24 +1,19 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
-    id "maven-publish"
     id "org.jetbrains.kotlin.plugin.allopen" version "1.4.21"
+
+    id "maven-publish"
+    id "org.jetbrains.dokka"
+    id 'signing'
 }
 
-group 'com.glancebar'
-version '0.0.1-SNAPSHOT'
+group 'com.glancebar.aliyun'
+version '0.0.1'
 
 repositories {
     mavenLocal()
     mavenCentral()
-}
-
-publishing {
-    publications {
-        myLibrary(MavenPublication) {
-            from components.java
-        }
-    }
 }
 
 dependencies {
@@ -39,4 +34,22 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+signing {
+    sign publishing.publications.maven
 }

@@ -25,7 +25,7 @@ class StsServiceApi(
     private var assumeRoleResponse: AssumeRoleResponse? = null
 
     /**
-     * Sts authorize then generate arn
+     * Sts authorize then generate arn role.
      *
      * @param roleArn               role-arn name
      * @param roleSessionName       app user name
@@ -61,12 +61,24 @@ class StsServiceApi(
         return client.getAcsResponse(request)
     }
 
+    /**
+     * Directly generate signature(Not arn role).
+     *
+     * @param roleSessionName
+     * @return
+     */
     override fun generateSignature(roleSessionName: String): SignatureResult {
         return MPUploadOssHelper(aliyunConfig).createUploadParams()
     }
 
+    /**
+     * Generate sts signature.
+     *
+     * @param roleSessionName
+     * @return
+     */
     override fun generateStsSignature(roleSessionName: String): SignatureResult {
-        refreshACM(roleSessionName)
+        refreshArn(roleSessionName)
         return MPUploadOssHelper(
             BasicSessionCredentials(
                 assumeRoleResponse!!.credentials.accessKeyId,
@@ -76,10 +88,16 @@ class StsServiceApi(
         ).createUploadParams()
     }
 
+    /**
+     * Refresh arn role.
+     *
+     * @param sessionName
+     */
     @Synchronized
-    private fun refreshACM(sessionName: String) {
+    private fun refreshArn(sessionName: String) {
         if (assumeRoleResponse == null ||
-            LocalDateTime.parse(assumeRoleResponse!!.credentials.expiration).toInstant(ZoneOffset.ofTotalSeconds(0))
+            LocalDateTime.parse(assumeRoleResponse!!.credentials.expiration.subSequence(0, 19))
+                .toInstant(ZoneOffset.ofTotalSeconds(0))
                 .toEpochMilli() < System.currentTimeMillis()
         ) {
             assumeRoleResponse =
