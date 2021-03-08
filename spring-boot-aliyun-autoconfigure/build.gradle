@@ -12,6 +12,7 @@ plugins {
 group 'com.glancebar.aliyun'
 version '0.0.1'
 
+
 dependencyManagement {
     imports {
         mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
