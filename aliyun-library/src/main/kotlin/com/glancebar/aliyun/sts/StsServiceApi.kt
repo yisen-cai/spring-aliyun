@@ -10,6 +10,7 @@ import com.glancebar.aliyun.MPUploadOssHelper
 import com.glancebar.aliyun.results.SignatureResult
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.util.concurrent.locks.ReentrantLock
 
 
 /**
@@ -23,6 +24,8 @@ class StsServiceApi(
 
     @Volatile
     private var assumeRoleResponse: AssumeRoleResponse? = null
+
+    private val lock: ReentrantLock = ReentrantLock()
 
     /**
      * Sts authorize then generate arn role.
@@ -78,7 +81,18 @@ class StsServiceApi(
      * @return
      */
     override fun generateStsSignature(roleSessionName: String): SignatureResult {
-        refreshArn(roleSessionName)
+        if (assumeRoleResponse == null ||
+            LocalDateTime.parse(assumeRoleResponse!!.credentials.expiration.subSequence(0, 19))
+                .toInstant(ZoneOffset.ofTotalSeconds(0))
+                .toEpochMilli() < System.currentTimeMillis()
+        ) {
+            if (!lock.isLocked) {
+                refreshArn(roleSessionName)
+            } else {
+                Thread.sleep(200)
+                return generateStsSignature(roleSessionName)
+            }
+        }
         return MPUploadOssHelper(
             BasicSessionCredentials(
                 assumeRoleResponse!!.credentials.accessKeyId,
@@ -93,15 +107,15 @@ class StsServiceApi(
      *
      * @param sessionName
      */
-    @Synchronized
     private fun refreshArn(sessionName: String) {
-        if (assumeRoleResponse == null ||
-            LocalDateTime.parse(assumeRoleResponse!!.credentials.expiration.subSequence(0, 19))
-                .toInstant(ZoneOffset.ofTotalSeconds(0))
-                .toEpochMilli() < System.currentTimeMillis()
-        ) {
+        try {
+            lock.lockInterruptibly()
             assumeRoleResponse =
                 stsAuthorizeThenGenerateArn(aliyunConfig[AliyunConfigParams.ALIYUN_STS_ACM_ROLE] as String, sessionName)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            lock.unlock()
         }
     }
 }
