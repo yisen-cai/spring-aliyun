@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration
 
 
 /**
+ * Aliyun自动装配
  *
  * @author YISEN CAI
  */
@@ -20,6 +21,9 @@ import org.springframework.context.annotation.Configuration
 @ConditionalOnClass(StsServiceApi::class)
 @EnableConfigurationProperties(value = [AliyunStsProperties::class])
 open class AliyunAutoConfiguration(
+    /**
+     * 自动注入的相关基础配置
+     */
     private val aliyunStsProperties: AliyunStsProperties
 ) {
 
@@ -35,6 +39,9 @@ open class AliyunAutoConfiguration(
     }
 
 
+    /**
+     * 根据基础配置创建Aliyun相关工具类Bean
+     */
     @Bean
     @ConditionalOnMissingBean
     open fun stsService(aliyunConfig: AliyunConfig): StsService {

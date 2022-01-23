@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 
 /**
+ * 自动装配所需的配置映射类
  *
  * @author YISEN CAI
  */

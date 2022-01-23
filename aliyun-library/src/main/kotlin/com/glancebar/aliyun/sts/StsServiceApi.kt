@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock
 
 /**
  * STS authorization access.
- * https://help.aliyun.com/document_detail/100624.htm?spm=a2c4g.11186623.2.5.1d746d13rLl0lR#concept-xzh-nzk-2gb
+ * @see <a href="https://help.aliyun.com/document_detail/100624.htm?spm=a2c4g.11186623.2.5.1d746d13rLl0lR#concept-xzh-nzk-2gb">doc</a>
  * @author YISEN CAI
  */
 class StsServiceApi(
