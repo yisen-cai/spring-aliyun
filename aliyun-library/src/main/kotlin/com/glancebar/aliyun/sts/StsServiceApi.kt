@@ -42,7 +42,7 @@ class StsServiceApi(
     ): AssumeRoleResponse {
 
         DefaultProfile.addEndpoint(
-            "", "",
+            "",
             "Sts",
             aliyunConfig[AliyunConfigParams.ALIYUN_STS_ENDPOINT] as String
         )

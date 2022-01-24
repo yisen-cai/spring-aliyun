@@ -30,6 +30,7 @@ open class AliyunAutoConfiguration(
     @Bean
     open fun aliyunConfig(): AliyunConfig {
         val config = AliyunConfig()
+        // TODO: 此处加各种checker，校验配置是否配置了
         config[AliyunConfigParams.ALIYUN_STS_ACCESS_KEY_ID] = aliyunStsProperties.sts.accessKeyId
         config[AliyunConfigParams.ALIYUN_STS_ACCESS_KEY_SECRET] = aliyunStsProperties.sts.accessKeySecret
         config[AliyunConfigParams.ALIYUN_STS_ENDPOINT] = aliyunStsProperties.sts.endpoint
