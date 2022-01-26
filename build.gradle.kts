@@ -13,7 +13,7 @@ val snapshotRepoUrl by extra("https://oss.sonatype.org/content/repositories/snap
 
 allprojects {
     group = "com.glancebar.aliyun"
-    version = "0.0.5"
+    version = "0.0.6-SNAPSHOT"
 }
 
 repositories {
