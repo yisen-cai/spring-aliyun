@@ -8,7 +8,6 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
@@ -21,13 +20,20 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation(project(":spring-boot-autoconfigure"))
-    api(project(":aliyun-library"))
+    implementation(project(":aliyun-library"))
+
+    // Generate its dependencies bean(Conditional Metadata) under META-INF(META-INF/spring-autoconfigure-metadata.properties) folder
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    // Creating IDE friendly Configuration Metadata
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
+
 
 java {
     withJavadocJar()

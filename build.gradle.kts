@@ -4,12 +4,20 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("signing")
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
 
 val releaseRepoUrl by extra("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
 val snapshotRepoUrl by extra("https://oss.sonatype.org/content/repositories/snapshots/")
+val springBootVersion by extra("2.4.1")
 
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+    }
+}
 
 allprojects {
     group = "com.glancebar.aliyun"
