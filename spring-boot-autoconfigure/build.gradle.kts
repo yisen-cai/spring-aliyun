@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val springBootVersion: String by rootProject.extra
+val springBootVersion = properties["spring-boot-version"] as String
 
 dependencyManagement {
     imports {
@@ -22,6 +22,7 @@ dependencyManagement {
 dependencies {
     implementation(project(":aliyun-library"))
 
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     // Generate its dependencies bean(Conditional Metadata) under META-INF(META-INF/spring-autoconfigure-metadata.properties) folder
     implementation("org.springframework.boot:spring-boot-autoconfigure")
     // Creating IDE friendly Configuration Metadata
@@ -45,9 +46,10 @@ publishing {
     repositories {
         maven {
             name = "ossrh"
-            val releaseRepoUrl: String by rootProject.extra
-            val snapshotRepoUrl: String by rootProject.extra
-            url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotRepoUrl else releaseRepoUrl)
+            url = uri(if (version.toString().endsWith("SNAPSHOT"))
+                properties["snapshot-repo-url"] as String
+            else
+                properties["release.repo-url"] as String)
             credentials {
                 username = properties["ossrh.username"] as String?
                 password = properties["ossrh.password"] as String?
@@ -61,7 +63,7 @@ publishing {
             pom {
                 name.set("Spring Boot Starter Aliyun")
                 description.set("Support some aliyun utils and integrate with Spring.")
-                url.set("https://github.com/yisen-cai/spring-aliyun/tree/main/spring-boot-starter-aliyun")
+                url.set("https://github.com/yisen-cai/spring-aliyun/tree/main/spring-boot-autoconfigure")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0'")

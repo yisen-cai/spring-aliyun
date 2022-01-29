@@ -8,9 +8,7 @@ plugins {
 }
 
 
-val releaseRepoUrl by extra("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-val snapshotRepoUrl by extra("https://oss.sonatype.org/content/repositories/snapshots/")
-val springBootVersion by extra("2.4.1")
+val springBootVersion = properties["spring-boot-version"] as String
 
 
 dependencyManagement {

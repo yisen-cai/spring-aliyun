@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
 }
 
-val springBootVersion: String by rootProject.extra
+val springBootVersion = properties["spring-boot-version"] as String
 
 dependencyManagement {
     imports {
@@ -21,7 +21,9 @@ dependencyManagement {
 }
 
 dependencies {
+    // Internal use.
     implementation(project(":spring-boot-autoconfigure"))
+    // Expose code to public access.
     api(project(":aliyun-library"))
 }
 
@@ -39,11 +41,13 @@ publishing {
     repositories {
         maven {
             name = "ossrh"
-            val releaseRepoUrl: String by rootProject.extra
-            val snapshotRepoUrl: String by rootProject.extra
-            url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotRepoUrl else releaseRepoUrl)
+            url = uri(if (version.toString().endsWith("SNAPSHOT"))
+                        properties["snapshot-repo-url"] as String
+                    else
+                        properties["release.repo-url"] as String)
+
             credentials {
-                username = properties["ossrh.username"] as String?
+                username = properties["ossrh.username"] as String
                 password = properties["ossrh.password"] as String?
             }
         }
