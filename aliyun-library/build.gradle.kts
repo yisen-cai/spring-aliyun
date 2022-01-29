@@ -50,7 +50,7 @@ publishing {
             pom {
                 name.set("Aliyun Library")
                 description.set("Aliyun Basic Library.")
-                url.set("https://github.com/yisen-cai/spring-aliyun/tree/main/aliyun-library")
+                url.set("https://github.com/yisen-cai/spring-aliyun/tree/v0.0.6/aliyun-library")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0'")

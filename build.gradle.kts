@@ -19,7 +19,7 @@ dependencyManagement {
 
 allprojects {
     group = "com.glancebar.aliyun"
-    version = "0.0.6-SNAPSHOT"
+    version = "0.0.6"
 }
 
 repositories {

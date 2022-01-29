@@ -59,7 +59,7 @@ publishing {
             pom {
                 name.set("Spring Boot Starter Aliyun")
                 description.set("Support some aliyun utils and integrate with Spring.")
-                url.set("https://github.com/yisen-cai/spring-aliyun/tree/main/spring-boot-starter-aliyun")
+                url.set("https://github.com/yisen-cai/spring-aliyun/tree/v0.0.6/spring-boot-starter-aliyun")
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0'")
